@@ -1,0 +1,38 @@
+﻿<Application x:Class="ClusterSurveillance.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewModel="clr-namespace:ClusterSurveillance.MVVM.ViewModel"
+             xmlns:view="clr-namespace:ClusterSurveillance.MVVM.View"
+             xmlns:viewModelSettings="clr-namespace:ClusterSurveillance.MVVM.ViewModel.Settings"
+             xmlns:viewSettings="clr-namespace:ClusterSurveillance.MVVM.View.Options"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/TitleBarButton.xaml"/>
+                <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/ToggleButtonTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:ServerViewModel}">
+                <view:ServerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:OptionViewModel}">
+                <view:OptionView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:TroubleshootViewModel}">
+                <view:TroubleshootView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelSettings:GeneralViewModel}">
+                <viewSettings:General/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelSettings:ExperimentalFeaturesViewModel}">
+                <viewSettings:ExperimentalFeaturesView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModelSettings:SoftwareUpdatesViewModel}">
+                <viewSettings:SoftwareUpdatesView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,230 @@
+﻿<UserControl x:Class="ClusterSurveillance.MVVM.View.OptionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage" xmlns:viewmodel="clr-namespace:ClusterSurveillance.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+             xmlns:viewModel="clr-namespace:ClusterSurveillance.MVVM.ViewModel"
+             mc:Ignorable="d" 
+             >
+    <UserControl.Resources>
+        <Style TargetType="{x:Type RadioButton}" x:Key="OptionButton">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border x:Name="border">
+                                <Border.Background>
+                                    <SolidColorBrush x:Name="BackgroundColor" Color="#0066BBFF"/>
+                                </Border.Background>
+                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="50,0,0,0" FontSize="14">
+                                    <TextBlock.Foreground>
+                                        <SolidColorBrush x:Name="ForegroundColor" Color="#FFFFFFFF"/>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="BackgroundColor"
+                                                    Storyboard.TargetProperty="Color"
+                                                    To="#2466BBFF" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="BackgroundColor"
+                                                    Storyboard.TargetProperty="Color"
+                                                    To="#0066BBFF" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="border" Property="Border.BorderBrush" Value="#0084FF"/>
+                                    <Setter TargetName="border" Property="Border.BorderThickness" Value="4,0,0,0"/>
+                                    <Setter TargetName="border" Property="Border.Background" Value="#4866BBFF"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Style.Setters>
+        </Style>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewmodel:OptionViewModel/>
+    </UserControl.DataContext>
+    <Grid Background="#FF272537">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Settings" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontFamily="Poppins SemiBold" FontSize="18" Margin="20,0,0,0"/>
+
+        <Grid Grid.Row="1" Margin="50,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="340"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,45">
+                <RadioButton Width="250" Height="45" Content="General" Style="{StaticResource OptionButton}" IsChecked="True" Command="{Binding GeneralViewCommand}"/>
+                <RadioButton Width="250" Height="45" Content="Experimental Features" Style="{StaticResource OptionButton}" Command="{Binding ExperimentalFeatureViewCommand}"/>
+                <RadioButton Width="250" Height="45" Content="Software Updates" Style="{StaticResource OptionButton}" Command="{Binding SoftwareUpdatesViewCommand}"/>
+            </StackPanel>
+            <ContentControl Content="{Binding CurrentView}" Grid.Column="1"/>
+        </Grid>
+        <Border Grid.Row="1" BorderBrush="#775A5961" BorderThickness="0,1,0,1"/>
+        <Button Height="30" Margin="20,0" HorizontalAlignment="Right" Width="30" Opacity="0.2" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.CloseOptionViewCommand}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Setters>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="Transparent">
+                                        <svg:SVGImage Source="ClusterSurveillance;component/Images/times.svg" HorizontalContentAlignment="Center" Height="15" Width="15"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="1.0" Duration="0:0:0.2"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0.2" Duration="0:0:0.2"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style.Setters>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Border Grid.Row="3" Background="#FF211F2F" />
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="75,0">
+            <Button Content="Cancel" Height="30" Margin="5,0" FontFamily="Poppins" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.CloseOptionViewCommand}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Setters>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Grid>
+                                            <Border BorderBrush="#FF0084FF" BorderThickness="1" CornerRadius="4">
+                                                <Border.Background>
+                                                    <SolidColorBrush x:Name="BackgroundColor" Color="#000084FF"/>
+                                                </Border.Background>
+                                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,0">
+                                                    <TextBlock.Foreground>
+                                                        <SolidColorBrush Color="#FF0084FF"/>
+                                                    </TextBlock.Foreground>
+                                                </TextBlock>
+                                            </Border>
+                                        </Grid>
+
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="BackgroundColor"
+                                                    Storyboard.TargetProperty="Color"
+                                                    To="#120084FF" Duration="0:0:0.2"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.EnterActions>
+                                                <Trigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="BackgroundColor"
+                                                    Storyboard.TargetProperty="Color"
+                                                    To="#000084FF" Duration="0:0:0.2"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.ExitActions>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style.Setters>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="Apply" Height="30" Margin="5,0">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Setters>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Grid>
+                                            <Border CornerRadius="4">
+                                                <Border.Background>
+                                                    <SolidColorBrush x:Name="BackgroundColor" Color="#0084FF"/>
+                                                </Border.Background>
+                                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,0">
+                                                    <TextBlock.Foreground>
+                                                        <SolidColorBrush x:Name="ForegroundColor" Color="#FFFFFF"/>
+                                                    </TextBlock.Foreground>
+                                                </TextBlock>
+                                            </Border>
+                                        </Grid>
+
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="BackgroundColor"
+                                                    Storyboard.TargetProperty="Color"
+                                                    To="#006ACC" Duration="0:0:0.2"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.EnterActions>
+                                                <Trigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="BackgroundColor"
+                                                    Storyboard.TargetProperty="Color"
+                                                    To="#0084FF" Duration="0:0:0.2"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </Trigger.ExitActions>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style.Setters>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

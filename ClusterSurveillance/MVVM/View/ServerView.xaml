@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="ClusterSurveillance.MVVM.View.ServerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClusterSurveillance.MVVM.View"
+             xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
+             mc:Ignorable="d" 
+             >
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <svg:SVGImage Source="ClusterSurveillance;component/Images/eclair.svg" Margin="3" HorizontalContentAlignment="Center" Height="80"/>
+        <TextBlock Text="No registered pastry" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins SemiBold" FontSize="32" Margin="0,20,0,0"/>
+        <TextBlock Text="Try running a surveillant or use the in-built dummy command and then come back" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins" FontSize="16" Margin="0,40,0,0"/>
+    </StackPanel>
+</UserControl>
