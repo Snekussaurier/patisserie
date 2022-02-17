@@ -5,6 +5,10 @@ namespace ClusterSurveillance.MVVM.ViewModel
 {
     internal class MainViewModel : ObservableObject
     {
+        public const string SERVER_TITLE = "Patisserie";
+        public const string SETTINGS_TITLE = "Settings";
+        public const string TROUBLESHOOT_TITLE = "Troubleshooting";
+
         public RelayCommand OptionViewCommand { get; set; }
         public RelayCommand CloseOptionViewCommand { get; set; }
 
@@ -57,6 +61,17 @@ namespace ClusterSurveillance.MVVM.ViewModel
             }
         }
 
+        private string _title;
+
+        public string Title
+        {
+            get { return _title; }
+            set { _title = value;
+                OnPropertyChanged();
+            }
+        }
+
+
 
 
         public MainViewModel()
@@ -66,24 +81,29 @@ namespace ClusterSurveillance.MVVM.ViewModel
             TroubleshootVM = new TroubleshootViewModel();
 
             CurrentView = ServerVM;
+            Title = SERVER_TITLE;
 
             OptionViewCommand = new RelayCommand(o => {
                 OptionView = OptionVM;
                 OptionsIsChecked = true;
+                Title = SETTINGS_TITLE;
             });
             CloseOptionViewCommand = new RelayCommand(o => {
                 OptionView = null;
                 OptionsIsChecked = false;
+                Title = SERVER_TITLE;
             });
             TroubleshootViewCommand = new RelayCommand(o =>
             {
                 OptionView = TroubleshootVM;
                 TroubleshootIsChecked = true;
+                Title = TROUBLESHOOT_TITLE;
             });
             CloseTroubleshootViewCommand = new RelayCommand(o =>
             {
                 OptionView = null;
                 TroubleshootIsChecked = false;
+                Title = SERVER_TITLE;
             });
         }
     }

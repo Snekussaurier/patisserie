@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModel="clr-namespace:ClusterSurveillance.MVVM.ViewModel"
         xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage"
+        xmlns:tb="http://www.hardcodet.net/taskbar" 
         mc:Ignorable="d"
-        Title="Cluster Surveillance" 
+        Title="{Binding Title}" 
         Height="720"
         Width="1280" 
         MinWidth="1024" 
         MinHeight="620" 
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None"
-        Margin="6,6,5,0"
+        Margin="6,6,5,0" Icon="/PatiserieIcon.png"
         >
     <Window.DataContext>
         <viewModel:MainViewModel/>
@@ -35,6 +36,19 @@
             <RowDefinition Height="55"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <tb:TaskbarIcon
+                    Visibility="Visible"
+                    ToolTipText="Patisserie working"
+                    IconSource="/Images/icon.ico"
+                    PopupActivation="DoubleClick"
+            TrayLeftMouseUp="NotifyIcon"
+            >
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Exit Patisserie" Click="Shutdown"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
         <Border Background="#FF343148" Grid.ColumnSpan="2" Grid.Row="0" MouseLeftButtonDown="TitleBarLeftMouseDown" BorderBrush="#775A5961" BorderThickness="0,0,0,1">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -51,7 +65,9 @@
                     <RadioButton Height="35" MinWidth="35" Style="{StaticResource TitleButtonTheme}" Background="#11FFFFFF" Command="{Binding TroubleshootViewCommand}" IsChecked="{Binding TroubleshootIsChecked}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <Button Height="30" Width="45" Click="Minimize"/>
+                    <Button Height="30" Width="45" Click="Minimize">
+                        <svg:SVGImage Source="ClusterSurveillance;component/Images/cube.svg" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Button>
                     <Button Height="30" Width="45" Click="Maximize"/>
                     <Button Height="30" Width="45" Click="Exit"/>
                 </StackPanel>
@@ -59,8 +75,8 @@
         </Border>
         <Grid Background="#FF211F2F" Grid.Column="0" Grid.Row="1">
             <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top" >
-                <RadioButton Content="Servers" Height="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" IsChecked="True"/>
-                <RadioButton Content="Data" Height="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="Counter" Height="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" IsChecked="True"/>
+                <RadioButton Content="Menu" Height="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
             </StackPanel>
         </Grid>
         

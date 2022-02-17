@@ -127,7 +127,7 @@
         <Border Grid.Row="3" Background="#FF211F2F" />
         
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="75,0">
-            <Button Content="Cancel" Height="30" Margin="5,0" FontFamily="Poppins" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.CloseOptionViewCommand}">
+            <Button Content="Cancel" Margin="5,0" FontFamily="Poppins" Height="35" VerticalAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.CloseOptionViewCommand}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Setters>
@@ -139,7 +139,7 @@
                                                 <Border.Background>
                                                     <SolidColorBrush x:Name="BackgroundColor" Color="#000084FF"/>
                                                 </Border.Background>
-                                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,0">
+                                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,7">
                                                     <TextBlock.Foreground>
                                                         <SolidColorBrush Color="#FF0084FF"/>
                                                     </TextBlock.Foreground>
@@ -176,7 +176,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Apply" Height="30" Margin="5,0">
+            <Button Content="Apply" Margin="5,0" Height="35" VerticalAlignment="Center">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Setters>
@@ -188,7 +188,7 @@
                                                 <Border.Background>
                                                     <SolidColorBrush x:Name="BackgroundColor" Color="#0084FF"/>
                                                 </Border.Background>
-                                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,0">
+                                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,7">
                                                     <TextBlock.Foreground>
                                                         <SolidColorBrush x:Name="ForegroundColor" Color="#FFFFFF"/>
                                                     </TextBlock.Foreground>
