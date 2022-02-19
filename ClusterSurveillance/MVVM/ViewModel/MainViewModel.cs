@@ -27,7 +27,7 @@ namespace ClusterSurveillance.MVVM.ViewModel
         public TroubleshootViewModel TroubleshootVM { get; set; }
 
         public LoggerClass Logger { get; set; }
-        private Broker _broker { get; set; }
+        private MqttConnector _connector { get; set; }
 
         private object _currentView;
 
@@ -90,8 +90,8 @@ namespace ClusterSurveillance.MVVM.ViewModel
             LoggingVM = new LoggingViewModel();
 
             Logger = new LoggerClass(LoggingVM);
-            _broker = new Broker(Logger);
-            _broker.StartServer();
+            _connector= new MqttConnector(Logger);
+            _connector.StartClient();
 
             CurrentView = ServerVM;
             Title = SERVER_TITLE;
