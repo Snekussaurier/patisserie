@@ -3,9 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ClusterSurveillance.MVVM.View"
+             xmlns:viewModel="clr-namespace:ClusterSurveillance.MVVM.ViewModel"
              xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage" xmlns:viewmodel="clr-namespace:ClusterSurveillance.MVVM.ViewModel"
              mc:Ignorable="d">
+    <UserControl.DataContext>
+        <viewmodel:TroubleshootViewModel/>
+    </UserControl.DataContext>
     <Grid Background="#FF272537">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -90,7 +93,7 @@
                         <TextBlock Text="Support" Foreground="White" FontFamily="Poppins Medium" FontSize="14"  TextWrapping="WrapWithOverflow"/>
                         <TextBlock Text="Get help with Patisserie." Foreground="Gray" FontFamily="Poppins Medium" FontSize="12"  TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Content="Get support" Margin="5,0" FontFamily="Poppins" Height="35">
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Content="Get support" Margin="5,0" FontFamily="Poppins" Height="35" Command="{Binding OpenSupport}">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Style.Setters>

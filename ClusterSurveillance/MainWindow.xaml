@@ -75,8 +75,8 @@
         </Border>
         <Grid Background="#FF211F2F" Grid.Column="0" Grid.Row="1">
             <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top" >
-                <RadioButton Content="Counter" Height="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" IsChecked="True"/>
-                <RadioButton Content="Menu" Height="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}"/>
+                <RadioButton Content="Clients" Height="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding ServerViewCommand}" IsChecked="True"/>
+                <RadioButton Content="Logging" Height="50" Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding LoggingViewCommand}"/>
             </StackPanel>
         </Grid>
         

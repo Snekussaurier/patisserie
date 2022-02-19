@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ClusterSurveillance.Core;
 
 namespace ClusterSurveillance.MVVM.ViewModel
 {
-    internal class TroubleshootViewModel
+    internal class TroubleshootViewModel : ObservableObject
     {
+        public RelayCommand OpenSupport { get; set; }
+
+        public RelayCommand RestartApplication { get; set; }
+
+        public TroubleshootViewModel()
+        {
+            OpenSupport = new RelayCommand(o =>
+            {
+                System.Diagnostics.Process.Start("https://gitlab.com/Snekussaurier/patisserie/-/wikis/home");
+            });
+        }
     }
 }

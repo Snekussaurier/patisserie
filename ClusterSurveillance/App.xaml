@@ -23,6 +23,9 @@
             <DataTemplate DataType="{x:Type viewModel:TroubleshootViewModel}">
                 <view:TroubleshootView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:LoggingViewModel}">
+                <view:LoggingView/>
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModelSettings:GeneralViewModel}">
                 <viewSettings:General/>

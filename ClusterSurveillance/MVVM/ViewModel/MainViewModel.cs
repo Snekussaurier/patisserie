@@ -1,13 +1,18 @@
 ﻿using ClusterSurveillance.Core;
-using System;
+using ClusterSurveillance.MVVM.Model.Logger;
+using ClusterSurveillance.MVVM.Model;
 
 namespace ClusterSurveillance.MVVM.ViewModel
 {
     internal class MainViewModel : ObservableObject
     {
+
         public const string SERVER_TITLE = "Patisserie";
         public const string SETTINGS_TITLE = "Settings";
         public const string TROUBLESHOOT_TITLE = "Troubleshooting";
+
+        public RelayCommand ServerViewCommand { get; set; }
+        public RelayCommand LoggingViewCommand { get; set; }
 
         public RelayCommand OptionViewCommand { get; set; }
         public RelayCommand CloseOptionViewCommand { get; set; }
@@ -17,9 +22,12 @@ namespace ClusterSurveillance.MVVM.ViewModel
         public RelayCommand CloseTroubleshootViewCommand { get; set; }
 
         public ServerViewModel ServerVM { get; set; }
+        public LoggingViewModel LoggingVM { get; set; }
         public OptionViewModel OptionVM { get; set; }
         public TroubleshootViewModel TroubleshootVM { get; set; }
 
+        public LoggerClass Logger { get; set; }
+        private Broker _broker { get; set; }
 
         private object _currentView;
 
@@ -79,6 +87,11 @@ namespace ClusterSurveillance.MVVM.ViewModel
             ServerVM = new ServerViewModel();
             OptionVM = new OptionViewModel();
             TroubleshootVM = new TroubleshootViewModel();
+            LoggingVM = new LoggingViewModel();
+
+            Logger = new LoggerClass(LoggingVM);
+            _broker = new Broker(Logger);
+            _broker.StartServer();
 
             CurrentView = ServerVM;
             Title = SERVER_TITLE;
@@ -104,6 +117,14 @@ namespace ClusterSurveillance.MVVM.ViewModel
                 OptionView = null;
                 TroubleshootIsChecked = false;
                 Title = SERVER_TITLE;
+            });
+            ServerViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = ServerVM;
+            });
+            LoggingViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = LoggingVM;
             });
         }
     }
