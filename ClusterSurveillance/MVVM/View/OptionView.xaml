@@ -59,9 +59,6 @@
             </Style.Setters>
         </Style>
     </UserControl.Resources>
-    <UserControl.DataContext>
-        <viewmodel:OptionViewModel/>
-    </UserControl.DataContext>
     <Grid Background="#FF272537">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -78,6 +75,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="0,45">
                 <RadioButton Width="250" Height="45" Content="General" Style="{StaticResource OptionButton}" IsChecked="True" Command="{Binding GeneralViewCommand}"/>
+                <RadioButton Width="250" Height="45" Content="Broker Settings" Style="{StaticResource OptionButton}" Command="{Binding BrokerSettingsViewCommand}" Cursor="Hand"/>
                 <RadioButton Width="250" Height="45" Content="Experimental Features" Style="{StaticResource OptionButton}" Command="{Binding ExperimentalFeatureViewCommand}"/>
                 <RadioButton Width="250" Height="45" Content="Software Updates" Style="{StaticResource OptionButton}" Command="{Binding SoftwareUpdatesViewCommand}"/>
             </StackPanel>

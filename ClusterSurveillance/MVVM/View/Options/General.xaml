@@ -45,7 +45,7 @@
             <ToggleButton Content="Start Server Surveillance when you log in" Style="{StaticResource SettingsToggleButton}"/>
             <ToggleButton Content="Send usage statistics" Style="{StaticResource SettingsToggleButton}"/>
             <ToggleButton Content="Show weekly tips" Style="{StaticResource SettingsToggleButton}"/>
-            <ToggleButton Content="Open Docker Dashboard at startup" Style="{StaticResource SettingsToggleButton}"/>
+            <ToggleButton Content="Open Docker Dashboard at startup" Style="{StaticResource SettingsToggleButton}" Cursor="Hand"/>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

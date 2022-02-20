@@ -133,6 +133,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Options\BrokerSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Options\ExperimentalFeaturesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,12 +182,16 @@
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
     <Compile Include="MVVM\ViewModel\OptionViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ServerViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Settings\BrokerSettingsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Settings\ExperimentalFeaturesViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Settings\GeneralViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Settings\SoftwareUpdatesViewModel.cs" />
     <Compile Include="MVVM\ViewModel\TroubleshootViewModel.cs" />
     <Compile Include="MVVM\View\LoggingView.xaml.cs">
       <DependentUpon>LoggingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Options\BrokerSettingsView.xaml.cs">
+      <DependentUpon>BrokerSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Options\ExperimentalFeaturesView.xaml.cs">
       <DependentUpon>ExperimentalFeaturesView.xaml</DependentUpon>

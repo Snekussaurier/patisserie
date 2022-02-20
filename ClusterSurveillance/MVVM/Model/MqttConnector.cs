@@ -42,13 +42,18 @@ namespace ClusterSurveillance.MVVM.Model
             _mqttClient.ConnectingFailedHandler = new ConnectingFailedHandlerDelegate(OnConnectingFailed);
 
             _mqttClient.UseApplicationMessageReceivedHandler(async e => {
+                if(e.ApplicationMessage.Topic == "sensorclient/alarm")
+                {
+                    _logger.Log(LogLevel.Error, $"Message recieved: {e.ApplicationMessage.ConvertPayloadToString()}");
+                    return;
+                }
                 _logger.Log(LogLevel.Information, $"Message recieved: {e.ApplicationMessage.ConvertPayloadToString()}");
             });
 
 
             // Starts a connection with the Broker
             await _mqttClient.StartAsync(options);
-            await _mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("sensorclient/data").Build());
+            await _mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("sensorclient/#").Build());
         }
 
         public void OnConnected(MqttClientConnectedEventArgs obj)
