@@ -94,7 +94,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Border.RenderTransform>
-            <TextBlock Text="CLUSTER RUNNING FINE" Margin="8, 4" Foreground="White" FontFamily="Poppins Medium" FontSize="11"/>
+            <TextBlock Text="{Binding Connector.Status}" Margin="8, 4" Foreground="White" FontFamily="Poppins Medium" FontSize="11"/>
         </Border>
         <Border Grid.Row="1" Background="#FF2FFFA4" Opacity="1" x:Name="StatusBar" Height="25" VerticalAlignment="Bottom">
             <Border.Triggers>

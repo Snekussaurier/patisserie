@@ -42,10 +42,10 @@
     <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="ScrollView" >
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" x:Name="ScrollViewContent" Margin="45,0">
             <TextBlock Text="General" Grid.Row="0" VerticalAlignment="Center" Foreground="White" FontFamily="Poppins Medium" FontSize="22" Margin="0,45,0,0"/>
-            <ToggleButton Content="Start Server Surveillance when you log in" Style="{StaticResource SettingsToggleButton}"/>
-            <ToggleButton Content="Send usage statistics" Style="{StaticResource SettingsToggleButton}"/>
-            <ToggleButton Content="Show weekly tips" Style="{StaticResource SettingsToggleButton}"/>
-            <ToggleButton Content="Open Docker Dashboard at startup" Style="{StaticResource SettingsToggleButton}" Cursor="Hand"/>
+            <ToggleButton Content="Enter Partisserie when you log in" Style="{StaticResource SettingsToggleButton}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Config.AutoStart, UpdateSourceTrigger=PropertyChanged}"/>
+            <ToggleButton Content="Send usage statistics" Style="{StaticResource SettingsToggleButton}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Config.SendUsageData, UpdateSourceTrigger=PropertyChanged}"/>
+            <ToggleButton Content="Show weekly tips" Style="{StaticResource SettingsToggleButton}" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Config.ShowWeeklyTips, UpdateSourceTrigger=PropertyChanged}"/>
+           
         </StackPanel>
     </ScrollViewer>
 </UserControl>

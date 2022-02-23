@@ -1,6 +1,8 @@
 ﻿using ClusterSurveillance.Core;
 using ClusterSurveillance.MVVM.Model.Logger;
 using ClusterSurveillance.MVVM.Model;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace ClusterSurveillance.MVVM.ViewModel
 {
@@ -27,7 +29,7 @@ namespace ClusterSurveillance.MVVM.ViewModel
         public TroubleshootViewModel TroubleshootVM { get; set; }
 
         public LoggerClass Logger { get; set; }
-        private MqttConnector _connector { get; set; }
+        public MqttConnector Connector { get; set; }
 
         private object _currentView;
 
@@ -79,19 +81,25 @@ namespace ClusterSurveillance.MVVM.ViewModel
             }
         }
 
+        private Config config;
+
+        public Config Config
+        {
+            get { return config; }
+            set { config = value;
+                OnPropertyChanged();
+            }
+        }
 
 
 
         public MainViewModel()
         {
+
             ServerVM = new ServerViewModel();
             OptionVM = new OptionViewModel();
             TroubleshootVM = new TroubleshootViewModel();
             LoggingVM = new LoggingViewModel();
-
-            Logger = new LoggerClass(LoggingVM);
-            _connector= new MqttConnector(Logger);
-            _connector.StartClient();
 
             CurrentView = ServerVM;
             Title = SERVER_TITLE;
@@ -126,6 +134,18 @@ namespace ClusterSurveillance.MVVM.ViewModel
             {
                 CurrentView = LoggingVM;
             });
+            Logger = new LoggerClass(LoggingVM);
+            Config = new Config();
+            try
+            {
+                Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(@"Appsettings\appsettings.json"));
+            }
+            catch (System.Exception e)
+            {
+                Logger.Log(Microsoft.Extensions.Logging.LogLevel.Error, e.Message);
+            }
+            Connector = new MqttConnector(Logger, Config);
+            Connector.StartClientAsync();
         }
     }
 }

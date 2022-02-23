@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ClusterSurveillance.Core;
 
 namespace ClusterSurveillance.MVVM.ViewModel.Settings
 {
-    internal class BrokerSettingsViewModel
+    internal class BrokerSettingsViewModel : ObservableObject
     {
     }
 }

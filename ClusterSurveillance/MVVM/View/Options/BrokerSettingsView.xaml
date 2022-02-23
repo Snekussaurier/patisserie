@@ -19,10 +19,14 @@
                                     Foreground="White"
                                     Padding="0,5"
                                     CaretBrush="White"
-                                    Width="{Binding ElementName=ScrollViewContent,Path=ActualWidth}">
+                                    Width="{Binding ElementName=ScrollViewContent,Path=ActualWidth}"
+                                    Text="{Binding Path=Text,
+            RelativeSource={RelativeSource TemplatedParent}, 
+            Mode=TwoWay,
+            UpdateSourceTrigger=PropertyChanged}">
                                     
                             </TextBox>
-                            <TextBlock Text="{TemplateBinding Text}"
+                            <TextBlock Text="default:"
                                        Margin="0,5,0,0"
                                        Foreground="Gray"/>
                         </StackPanel>
@@ -35,13 +39,14 @@
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" x:Name="ScrollView" >
             <StackPanel Orientation="Vertical" x:Name="ScrollViewContent" Margin="45,0">
                 <TextBlock Text="Broker Settings" Grid.Row="0" VerticalAlignment="Center" Foreground="White" FontFamily="Poppins Medium" FontSize="22" Margin="0,45,0,0"/>
-                <TextBlock Text="IP adress" Grid.Row="0" VerticalAlignment="Center" Foreground="White" FontFamily="Poppins Medium" FontSize="14" Margin="0,20,0,0"/>
-                <TextBox Style="{StaticResource TextBoxTheme}" HorizontalAlignment="Left" Text="default: localhost"/>
+                <TextBlock Text="Adress" Grid.Row="0" VerticalAlignment="Center" Foreground="White" FontFamily="Poppins Medium" FontSize="14" Margin="0,20,0,0"/>
+                <TextBox Style="{StaticResource TextBoxTheme}" HorizontalAlignment="Left" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Config.IPAdress, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Port" Grid.Row="0" VerticalAlignment="Center" Foreground="White" FontFamily="Poppins Medium" FontSize="14" Margin="0,20,0,0"/>
-                <TextBox Style="{StaticResource TextBoxTheme}" HorizontalAlignment="Left" Text="default: 1111"/>
+                <TextBox Style="{StaticResource TextBoxTheme}" HorizontalAlignment="Left" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Config.Port, Mode=TwoWay}"/>
                 <ToggleButton Content="Reconnect automatically to broker after disconnect" Style="{StaticResource SettingsToggleButton}" Cursor="Hand" Margin="0,30,0,10"/>
                 <TextBlock Text="Reconnect time" Grid.Row="0" VerticalAlignment="Center" Foreground="White" FontFamily="Poppins Medium" FontSize="14"/>
-                <TextBox Style="{StaticResource TextBoxTheme}" HorizontalAlignment="Left" Text="default: 30 seconds"/>
+                <TextBox Style="{StaticResource TextBoxTheme}" HorizontalAlignment="Left" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Config.ReconnectTime, Mode=TwoWay}"/>
+                <Button Content="RestartClient"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>
