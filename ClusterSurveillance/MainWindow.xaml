@@ -105,6 +105,18 @@
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Exit Patisserie" Click="Shutdown"/>
+                    <MenuItem Header="Stop Client" Command="{Binding StopClientCommand}">
+                        <MenuItem.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Connector.Status}" Value="0">
+                                        <Setter Property="MenuItem.Header" Value="Start Client"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                                <Setter Property="MenuItem.Header" Value="Stop Client"/>
+                            </Style>
+                        </MenuItem.Style>
+                    </MenuItem>
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
@@ -186,9 +198,9 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Border.RenderTransform>
-            <TextBlock Text="{Binding Connector.Status}" Margin="8, 4" Foreground="White" FontFamily="Poppins Medium" FontSize="11"/>
+            <TextBlock Text="{Binding Connector.StatusMessage}" Margin="8, 4" Foreground="White" FontFamily="Poppins Medium" FontSize="11"/>
         </Border>
-        <Border Grid.Row="1" Background="#FF2FFFA4" Opacity="1" x:Name="StatusBar" Height="25" VerticalAlignment="Bottom">
+        <Border Grid.Row="1" Opacity="1" x:Name="StatusBar" Height="25" VerticalAlignment="Bottom">
             <Border.Triggers>
                 <EventTrigger RoutedEvent="MouseEnter">
                     <BeginStoryboard>
@@ -245,6 +257,21 @@
                     </BeginStoryboard>
                 </EventTrigger>
             </Border.Triggers>
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Connector.Status}" Value="0">
+                            <Setter Property="Border.Background" Value="#FF9BAAB5"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Connector.Status}" Value="1">
+                            <Setter Property="Border.Background" Value="#FFF7E519"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Connector.Status}" Value="2">
+                            <Setter Property="Border.Background" Value="#FF2FFFA4"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
             <svg:SVGImage Source="ClusterSurveillance;component/Images/cube.svg" Margin="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </Border>
     </Grid>

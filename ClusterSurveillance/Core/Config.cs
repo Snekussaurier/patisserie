@@ -13,7 +13,9 @@ namespace ClusterSurveillance.Core
         public bool AutoStart
         {
             get { return _autoStart; }
-            set { _autoStart = value;
+            set
+            {
+                _autoStart = value;
                 OnPropertyChanged();
             }
         }
@@ -23,7 +25,9 @@ namespace ClusterSurveillance.Core
         public bool SendUsageData
         {
             get { return _sendUsageData; }
-            set { _sendUsageData = value;
+            set
+            {
+                _sendUsageData = value;
                 OnPropertyChanged();
             }
         }
@@ -33,7 +37,9 @@ namespace ClusterSurveillance.Core
         public bool ShowWeeklyTips
         {
             get { return _showWeeklyTips; }
-            set { _showWeeklyTips = value;
+            set
+            {
+                _showWeeklyTips = value;
                 OnPropertyChanged();
             }
         }
@@ -56,7 +62,9 @@ namespace ClusterSurveillance.Core
         public bool ValidIPAdress
         {
             get { return _validIPAdress; }
-            set { _validIPAdress = value;
+            set
+            {
+                _validIPAdress = value;
                 OnPropertyChanged();
             }
         }
@@ -67,7 +75,9 @@ namespace ClusterSurveillance.Core
         public int Port
         {
             get { return _port; }
-            set { _port = value;
+            set
+            {
+                _port = value;
                 OnPropertyChanged();
             }
         }
@@ -86,7 +96,9 @@ namespace ClusterSurveillance.Core
         public int ReconnectTime
         {
             get { return _reconnectTime; }
-            set { _reconnectTime = value;
+            set
+            {
+                _reconnectTime = value;
                 OnPropertyChanged();
             }
         }
@@ -96,7 +108,9 @@ namespace ClusterSurveillance.Core
         public bool AutoCheckUpdates
         {
             get { return _autoCheckUpdates; }
-            set { _autoCheckUpdates = value;
+            set
+            {
+                _autoCheckUpdates = value;
                 OnPropertyChanged();
             }
         }
@@ -106,11 +120,11 @@ namespace ClusterSurveillance.Core
         public bool AutoDownloadUpdates
         {
             get { return _autoDownloadUpdates; }
-            set { _autoDownloadUpdates = value;
+            set
+            {
+                _autoDownloadUpdates = value;
                 OnPropertyChanged();
             }
         }
-
-
     }
 }

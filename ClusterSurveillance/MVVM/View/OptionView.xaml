@@ -174,7 +174,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Apply" Margin="5,0" Height="35" VerticalAlignment="Center">
+            <Button Content="Apply" Margin="5,0" Height="35" VerticalAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Config.ReconnectTime, Mode=TwoWay}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Setters>

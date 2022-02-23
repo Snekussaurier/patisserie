@@ -6,9 +6,6 @@
              xmlns:viewModel="clr-namespace:ClusterSurveillance.MVVM.ViewModel"
              xmlns:svg="clr-namespace:SVGImage.SVG;assembly=DotNetProjects.SVGImage" xmlns:viewmodel="clr-namespace:ClusterSurveillance.MVVM.ViewModel"
              mc:Ignorable="d">
-    <UserControl.DataContext>
-        <viewmodel:TroubleshootViewModel/>
-    </UserControl.DataContext>
     <Grid Background="#FF272537">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -36,7 +33,7 @@
                         <TextBlock Text="Restart Patisserie" Foreground="White" FontFamily="Poppins Medium" FontSize="14"  TextWrapping="WrapWithOverflow"/>
                         <TextBlock Text="All pastries and settings will be preserved." Foreground="Gray" FontFamily="Poppins Medium" FontSize="12"  TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Content="Restart" Margin="5,0" FontFamily="Poppins" Height="35">
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Content="Restart" Margin="5,0" FontFamily="Poppins" Height="35" Command="{Binding RestartApplication}" Cursor="Hand">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Style.Setters>
@@ -93,7 +90,7 @@
                         <TextBlock Text="Support" Foreground="White" FontFamily="Poppins Medium" FontSize="14"  TextWrapping="WrapWithOverflow"/>
                         <TextBlock Text="Get help with Patisserie." Foreground="Gray" FontFamily="Poppins Medium" FontSize="12"  TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Content="Get support" Margin="5,0" FontFamily="Poppins" Height="35" Command="{Binding OpenSupport}">
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Content="Get support" Margin="5,0" FontFamily="Poppins" Height="35" Command="{Binding OpenSupport}" Cursor="Hand">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Style.Setters>
@@ -150,7 +147,7 @@
                         <TextBlock Text="Reset to factory defaults" Foreground="White" FontFamily="Poppins Medium" FontSize="14"  TextWrapping="WrapWithOverflow"/>
                         <TextBlock Text="All settings and data will be removed." Foreground="Gray" FontFamily="Poppins Medium" FontSize="12"  TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Content="Reset to factory defaults" Margin="5,0" FontFamily="Poppins" Height="35">
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Content="Reset to factory defaults" Margin="5,0" FontFamily="Poppins" Height="35" Cursor="Hand">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Style.Setters>
@@ -202,7 +199,7 @@
                 </Grid>
             </Border>
         </StackPanel>
-        <Button Height="30" Margin="20,0" HorizontalAlignment="Right" Width="30" Opacity="0.2" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.CloseTroubleshootViewCommand}">
+        <Button Height="30" Margin="20,0" HorizontalAlignment="Right" Width="30" Opacity="0.2" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.CloseTroubleshootViewCommand}" Cursor="Hand">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Style.Setters>

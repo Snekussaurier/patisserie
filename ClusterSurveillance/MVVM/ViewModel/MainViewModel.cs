@@ -18,6 +18,7 @@ namespace ClusterSurveillance.MVVM.ViewModel
 
         public RelayCommand OptionViewCommand { get; set; }
         public RelayCommand CloseOptionViewCommand { get; set; }
+        public RelayCommand StopClientCommand { get; set; }
 
 
         public RelayCommand TroubleshootViewCommand { get; set; }
@@ -134,6 +135,11 @@ namespace ClusterSurveillance.MVVM.ViewModel
             {
                 CurrentView = LoggingVM;
             });
+            StopClientCommand = new RelayCommand(o =>
+            {
+                Connector.StopClientAsync();
+            });
+
             Logger = new LoggerClass(LoggingVM);
             Config = new Config();
             try

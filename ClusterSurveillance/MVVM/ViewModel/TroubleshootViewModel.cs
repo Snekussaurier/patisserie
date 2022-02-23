@@ -1,4 +1,6 @@
 ﻿using ClusterSurveillance.Core;
+using System.Diagnostics;
+using System.Windows;
 
 namespace ClusterSurveillance.MVVM.ViewModel
 {
@@ -12,7 +14,12 @@ namespace ClusterSurveillance.MVVM.ViewModel
         {
             OpenSupport = new RelayCommand(o =>
             {
-                System.Diagnostics.Process.Start("https://gitlab.com/Snekussaurier/patisserie/-/wikis/home");
+                Process.Start("https://gitlab.com/Snekussaurier/patisserie/-/wikis/home");
+            });
+            RestartApplication = new RelayCommand(o =>
+            {
+                Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
             });
         }
     }

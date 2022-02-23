@@ -9,6 +9,7 @@ using ClusterSurveillance.MVVM.Model.Logger;
 using Microsoft.Extensions.Logging;
 using MQTTnet.Client.Receiving;
 using ClusterSurveillance.Core;
+using System.Collections.Generic;
 
 namespace ClusterSurveillance.MVVM.Model
 {
@@ -21,28 +22,49 @@ namespace ClusterSurveillance.MVVM.Model
         ManagedMqttClientOptions _options;
         IManagedMqttClient _mqttClient;
 
-        private string _status;
+        public Dictionary<int, string> StatusLevels = new Dictionary<int, string>()
+        {
+            [0] = "PATISSERIE CLOSED",
+            [1] = "WAITING FOR BROKER",
+            [2] = "PATISSERIE OPEN"
+        };
 
-        public string Status
+        private int _status;
+
+        public int Status
         {
             get { return _status; }
-            set { _status = value;
+            set
+            {
+                _status = value;
+                StatusMessage = StatusLevels[value];
                 OnPropertyChanged();
             }
         }
+
+        private string _statusMessage;
+
+        public string StatusMessage
+        {
+            get { return _statusMessage; }
+            set { _statusMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public MqttConnector(LoggerClass logger, Config config)
         {
             _logger = logger;
             _config = config;
-            Status = "OPENING PATISSERIE";
         }
 
         public async void StartClientAsync()
         {
             _logger.Log(LogLevel.Information, "Starting mqtt client.");
+            Status = 1;
             // Creates a new client
-           _builder = new MqttClientOptionsBuilder()
+            _builder = new MqttClientOptionsBuilder()
                                                     .WithClientId("Dev.To")
                                                     .WithTcpServer(_config.IPAdress, _config.Port) ;
 
@@ -60,7 +82,7 @@ namespace ClusterSurveillance.MVVM.Model
             _mqttClient.DisconnectedHandler = new MqttClientDisconnectedHandlerDelegate(OnDisconnected);
             _mqttClient.ConnectingFailedHandler = new ConnectingFailedHandlerDelegate(OnConnectingFailed);
 
-            _mqttClient.UseApplicationMessageReceivedHandler(async e => {
+            _mqttClient.UseApplicationMessageReceivedHandler(e => {
                 if(e.ApplicationMessage.Topic == "sensorclient/alarm")
                 {
                     _logger.Log(LogLevel.Error, $"Message recieved: {e.ApplicationMessage.ConvertPayloadToString()}");
@@ -73,23 +95,28 @@ namespace ClusterSurveillance.MVVM.Model
             await _mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("sensorclient/#").Build());
         }
 
-        public async void RestartClient()
+        public void RestartClient()
+        {
+            StopClientAsync();
+            StartClientAsync();
+        }
+
+        public async void StopClientAsync()
         {
             _logger.Log(LogLevel.Information, "Stopping running client");
             await _mqttClient.StopAsync();
-            StartClientAsync();
         }
 
         public void OnConnected(MqttClientConnectedEventArgs obj)
         {
             _logger.Log(LogLevel.Information, "Successfully connected to broker.");
-            Status = "PATISSERIE RUNNING";
+            Status = 2;
         }
 
         public void OnDisconnected(MqttClientDisconnectedEventArgs obj)
         {
             _logger.Log(LogLevel.Information, "Successfully disconnected from broker.");
-            Status = "PATISSERIE CLOSED";
+            Status = 0;
         }
 
         public void OnConnectingFailed(ManagedProcessFailedEventArgs obj)
@@ -99,12 +126,12 @@ namespace ClusterSurveillance.MVVM.Model
             {
                 _logger.Log(LogLevel.Information, "Stopping client.");
                 _mqttClient.StopAsync();
-                Status = "PATISSERIE CLOSED";
+                Status = 0;
             }
             else
             {
                 _logger.Log(LogLevel.Information, $"Trying to reconnect in {_config.ReconnectTime} seconds");
-                Status = "WAITING FOR PASTRY";
+                Status = 1;
             }
         }
     }
