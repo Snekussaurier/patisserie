@@ -3,18 +3,24 @@
                     xmlns:core="clr-namespace:ClusterSurveillance.Core">
     <Style BasedOn="{StaticResource {x:Type ToggleButton}}" TargetType="{x:Type RadioButton}" x:Key="TitleButtonTheme">
         
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Margin" Value="20,0,0,0"/>
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
-                    <Border Name="border" BorderBrush="Transparent" CornerRadius="20">
+                    <Border Name="border" BorderBrush="Transparent" CornerRadius="20" SnapsToDevicePixels="true">
                         <Border.Background>
                             <SolidColorBrush x:Name="BackgroundColor" Color="#12FFFFFF"/>
                         </Border.Background>
-                        <Image Margin="17" Source="{Binding Path=(core:ImageButton.Image), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"/>
+                        <ContentPresenter
+						x:Name="contentPresenter"
+						Margin="0"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Focusable="False"
+						RecognizesAccessKey="True" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -39,6 +45,7 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="border" Property="Background" Value="#FFFFFFFF"/>
+                            <Setter Property="RadioButton.Foreground" Value="#FF232323"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
