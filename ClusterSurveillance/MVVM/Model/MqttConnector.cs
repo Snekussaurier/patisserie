@@ -76,7 +76,6 @@ namespace ClusterSurveillance.MVVM.Model
             Status = 1;
             // Creates a new client
             _builder = new MqttClientOptionsBuilder()
-                                                    .WithClientId("Dev.To")
                                                     .WithTcpServer(_config.IPAdress, _config.Port) ;
 
             // Create client options objects
@@ -100,6 +99,10 @@ namespace ClusterSurveillance.MVVM.Model
                     {
                         Clients.Add(new Client(e.ClientId, "", "", DateTime.Now));
                     });
+                }
+                else
+                {
+                    Clients.Where(client => string.Equals(client.ClientId, e.ClientId)).FirstOrDefault().GetMessage();
                 }
                 if(e.ApplicationMessage.Topic == "sensorclient/alarm")
                 {
