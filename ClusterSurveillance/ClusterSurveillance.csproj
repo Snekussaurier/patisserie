@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Fonts\Poppins\Poppins-Black.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-BlackItalic.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-Bold.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-BoldItalic.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-ExtraBold.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-ExtraLight.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-ExtraLightItalic.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-Italic.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-Light.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-LightItalic.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-Medium.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-MediumItalic.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-Regular.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-SemiBold.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-SemiBoldItalic.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-Thin.ttf" />
+    <Resource Include="Fonts\Poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="Appsettings\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.310801">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Fonts\Poppins\OFL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cube.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\times.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\eclair.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PatiserieIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PatiserieIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DotNetProjects.SVGImage" Version="4.1.99" />
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="MQTTnet.Extensions.ManagedClient" Version="3.1.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+</Project>
