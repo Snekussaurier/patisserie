@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ClusterSurveillance"
+    "\\ClusterSurveillance",
+    "\\ClusterSurveillance\\Theme"
   ],
-  "SelectedNode": "\\ClusterSurveillance.sln",
+  "SelectedNode": "\\ClusterSurveillance\\Theme\\TitleBarButton.xaml",
   "PreviewInSolutionExplorer": false
 }
