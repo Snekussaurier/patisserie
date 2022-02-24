@@ -9,18 +9,6 @@ namespace ClusterSurveillance.MVVM.ViewModel
 {
     public class LoggingViewModel : ObservableObject
     {
-        private ObservableCollection<LogItem> _logList;
-
-        public ObservableCollection<LogItem> MyProperty
-        {
-            get { return _logList; }
-            set { _logList = value;
-                App.Current.Dispatcher.BeginInvoke((Action)delegate
-                {
-                    OnPropertyChanged();
-                });
-            }
-        }
 
         public ObservableCollection<LogItem> LogList { get; set; }
 

@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using MQTTnet.Client.Receiving;
 using ClusterSurveillance.Core;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ClusterSurveillance.MVVM.Model
 {
@@ -17,6 +19,8 @@ namespace ClusterSurveillance.MVVM.Model
     {
         private readonly LoggerClass _logger;
         private readonly Config _config;
+
+        public ObservableCollection<Client> Clients { get; set; }
 
         MqttClientOptionsBuilder _builder;
         ManagedMqttClientOptions _options;
@@ -57,6 +61,13 @@ namespace ClusterSurveillance.MVVM.Model
         {
             _logger = logger;
             _config = config;
+            Clients = new ObservableCollection<Client>();
+            App.Current.Dispatcher.BeginInvoke((Action)delegate
+            {
+                Clients.Add(new Client("Test 1", "Spooky", "127.0.0.1", DateTime.Now));
+                Clients.Add(new Client("Test 2", "Scary", "127.0.0.1", DateTime.Now));
+                Clients.Add(new Client("Test 3", "Skeleton", null, DateTime.Now));
+            });
         }
 
         public async void StartClientAsync()
@@ -83,6 +94,13 @@ namespace ClusterSurveillance.MVVM.Model
             _mqttClient.ConnectingFailedHandler = new ConnectingFailedHandlerDelegate(OnConnectingFailed);
 
             _mqttClient.UseApplicationMessageReceivedHandler(e => {
+                if(!Clients.Any(client => client.ClientId == e.ClientId))
+                {
+                    App.Current.Dispatcher.BeginInvoke((Action)delegate
+                    {
+                        Clients.Add(new Client(e.ClientId, "", "", DateTime.Now));
+                    });
+                }
                 if(e.ApplicationMessage.Topic == "sensorclient/alarm")
                 {
                     _logger.Log(LogLevel.Error, $"Message recieved: {e.ApplicationMessage.ConvertPayloadToString()}");
