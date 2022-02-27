@@ -46,7 +46,6 @@
                 <ToggleButton Content="Reconnect automatically to broker after disconnect" Style="{StaticResource SettingsToggleButton}" Cursor="Hand" Margin="0,30,0,10"/>
                 <TextBlock Text="Reconnect time" Grid.Row="0" VerticalAlignment="Center" Foreground="White" FontFamily="Poppins Medium" FontSize="14"/>
                 <TextBox Style="{StaticResource TextBoxTheme}" HorizontalAlignment="Left" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Config.ReconnectTime, Mode=TwoWay}"/>
-                <Button Content="RestartClient"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

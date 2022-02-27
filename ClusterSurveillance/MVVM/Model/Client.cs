@@ -38,7 +38,7 @@ namespace ClusterSurveillance.MVVM.Model
             Name = name;
             if(!string.IsNullOrEmpty(adress)) Adress = adress;
             Created = created;
-            Status = true;
+            Status = false;
             _timer = new();
             _timer.Interval = 10000;
             _timer.Elapsed += OnTimerElapsed;

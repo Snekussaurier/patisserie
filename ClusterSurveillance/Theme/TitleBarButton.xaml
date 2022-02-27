@@ -45,7 +45,7 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="border" Property="Background" Value="#FFFFFFFF"/>
-                            <Setter Property="RadioButton.Foreground" Value="#FF232323"/>
+                            <Setter Property="RadioButton.Foreground" Value="#FF343148"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

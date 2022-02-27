@@ -62,12 +62,6 @@ namespace ClusterSurveillance.MVVM.Model
             _logger = logger;
             _config = config;
             Clients = new ObservableCollection<Client>();
-            App.Current.Dispatcher.BeginInvoke((Action)delegate
-            {
-                Clients.Add(new Client("Test 1", "Spooky", "127.0.0.1", DateTime.Now));
-                Clients.Add(new Client("Test 2", "Scary", "127.0.0.1", DateTime.Now));
-                Clients.Add(new Client("Test 3", "Skeleton", null, DateTime.Now));
-            });
         }
 
         public async void StartClientAsync()
@@ -104,12 +98,6 @@ namespace ClusterSurveillance.MVVM.Model
                 {
                     Clients.Where(client => string.Equals(client.ClientId, e.ClientId)).FirstOrDefault().GetMessage();
                 }
-                if(e.ApplicationMessage.Topic == "sensorclient/alarm")
-                {
-                    _logger.Log(LogLevel.Error, $"Message recieved: {e.ApplicationMessage.ConvertPayloadToString()}");
-                    return;
-                }
-                _logger.Log(LogLevel.Information, $"Message recieved: {e.ApplicationMessage.ConvertPayloadToString()}");
             });
             // Starts a connection with the Broker
             await _mqttClient.StartAsync(_options);
@@ -125,6 +113,7 @@ namespace ClusterSurveillance.MVVM.Model
         public async void StopClientAsync()
         {
             _logger.Log(LogLevel.Information, "Stopping running client");
+            Status = 0;
             await _mqttClient.StopAsync();
         }
 

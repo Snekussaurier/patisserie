@@ -13,15 +13,17 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="RadioButton">
-                            <Border x:Name="border">
+                            <Border x:Name="border" Padding="4,0,0,0">
                                 <Border.Background>
                                     <SolidColorBrush x:Name="BackgroundColor" Color="#0066BBFF"/>
                                 </Border.Background>
-                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="50,0,0,0" FontSize="14">
-                                    <TextBlock.Foreground>
-                                        <SolidColorBrush x:Name="ForegroundColor" Color="#FFFFFFFF"/>
-                                    </TextBlock.Foreground>
-                                </TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="50,0,0,0" FontSize="14">
+                                        <TextBlock.Foreground>
+                                            <SolidColorBrush x:Name="ForegroundColor" Color="#FFFFFFFF"/>
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                </StackPanel>
                             </Border>
 
                             <ControlTemplate.Triggers>
@@ -49,6 +51,7 @@
                                     <Setter TargetName="border" Property="Border.BorderBrush" Value="#0084FF"/>
                                     <Setter TargetName="border" Property="Border.BorderThickness" Value="4,0,0,0"/>
                                     <Setter TargetName="border" Property="Border.Background" Value="#4866BBFF"/>
+                                    <Setter TargetName="border" Property="Border.Padding" Value="0"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

@@ -78,7 +78,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="border" Property="Background" Value="#AAFF4242" />
+                                <Setter TargetName="border" Property="Background" Value="#CCFF3030" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -105,7 +105,7 @@
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Exit Patisserie" Click="Shutdown"/>
-                    <MenuItem Header="Stop Client" Command="{Binding StopClientCommand}">
+                    <MenuItem Command="{Binding StartStopClientCommand}">
                         <MenuItem.Style>
                             <Style>
                                 <Style.Triggers>

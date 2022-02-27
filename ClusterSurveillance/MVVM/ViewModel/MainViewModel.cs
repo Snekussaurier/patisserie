@@ -18,7 +18,7 @@ namespace ClusterSurveillance.MVVM.ViewModel
 
         public RelayCommand OptionViewCommand { get; set; }
         public RelayCommand CloseOptionViewCommand { get; set; }
-        public RelayCommand StopClientCommand { get; set; }
+        public RelayCommand StartStopClientCommand { get; set; }
 
 
         public RelayCommand TroubleshootViewCommand { get; set; }
@@ -96,11 +96,23 @@ namespace ClusterSurveillance.MVVM.ViewModel
 
         public MainViewModel()
         {
-
-            ServerVM = new ServerViewModel();
-            OptionVM = new OptionViewModel();
-            TroubleshootVM = new TroubleshootViewModel();
             LoggingVM = new LoggingViewModel();
+            Logger = new LoggerClass(LoggingVM);
+            Config = new Config();
+            try
+            {
+                Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(@"Appsettings\appsettings.json"));
+            }
+            catch (System.Exception e)
+            {
+                Logger.Log(Microsoft.Extensions.Logging.LogLevel.Error, e.Message);
+            }
+            Connector = new MqttConnector(Logger, Config);
+
+            ServerVM = new ServerViewModel(Connector);
+            OptionVM = new OptionViewModel();
+
+            TroubleshootVM = new TroubleshootViewModel(Logger);
 
             CurrentView = ServerVM;
             Title = SERVER_TITLE;
@@ -135,22 +147,14 @@ namespace ClusterSurveillance.MVVM.ViewModel
             {
                 CurrentView = LoggingVM;
             });
-            StopClientCommand = new RelayCommand(o =>
+            StartStopClientCommand = new RelayCommand(o =>
             {
-                Connector.StopClientAsync();
+                if (Connector.Status == 0)
+                {
+                    Connector.StartClientAsync();
+                }
+                else Connector.StopClientAsync();
             });
-
-            Logger = new LoggerClass(LoggingVM);
-            Config = new Config();
-            try
-            {
-                Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(@"Appsettings\appsettings.json"));
-            }
-            catch (System.Exception e)
-            {
-                Logger.Log(Microsoft.Extensions.Logging.LogLevel.Error, e.Message);
-            }
-            Connector = new MqttConnector(Logger, Config);
             Connector.StartClientAsync();
         }
     }

@@ -1,6 +1,14 @@
-﻿namespace ClusterSurveillance.MVVM.ViewModel
+﻿using ClusterSurveillance.MVVM.Model;
+
+namespace ClusterSurveillance.MVVM.ViewModel
 {
-    internal class ServerViewModel
+    public class ServerViewModel
     {
+        private MqttConnector _connector;
+        public bool Visible { get; set; }
+        public ServerViewModel(MqttConnector connector)
+        {
+            _connector = connector;
+        }
     }
 }
