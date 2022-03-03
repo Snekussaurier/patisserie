@@ -23,6 +23,10 @@
         <WindowChrome CaptionHeight="55" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
     </WindowChrome.WindowChrome>
     <Window.Resources>
+        <SolidColorBrush x:Key="ClientClosed" Color="#FF9BAAB5" />
+        <SolidColorBrush x:Key="ClientConnecting" Color="#FFF7E519" />
+        <SolidColorBrush x:Key="ClientOpen" Color="#FF2FFFA4" />
+
         <Style x:Key="TitleBarButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Padding" Value="0" />
@@ -86,6 +90,7 @@
             </Setter>
         </Style>
     </Window.Resources>
+
     <Grid Background="#272537">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -281,13 +286,13 @@
                 <Style>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Connector.Status}" Value="0">
-                            <Setter Property="Border.Background" Value="#FF9BAAB5"/>
+                            <Setter Property="Border.Background" Value="{StaticResource ClientClosed}"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Connector.Status}" Value="1">
-                            <Setter Property="Border.Background" Value="#FFF7E519"/>
+                            <Setter Property="Border.Background" Value="{StaticResource ClientConnecting}"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Connector.Status}" Value="2">
-                            <Setter Property="Border.Background" Value="#FF2FFFA4"/>
+                            <Setter Property="Border.Background" Value="{StaticResource ClientOpen}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

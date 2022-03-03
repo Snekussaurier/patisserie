@@ -18,7 +18,7 @@
                                     <SolidColorBrush x:Name="BackgroundColor" Color="#0066BBFF"/>
                                 </Border.Background>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="50,0,0,0" FontSize="14">
+                                    <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="50,0,0,0" FontSize="14" FontFamily="Poppins">
                                         <TextBlock.Foreground>
                                             <SolidColorBrush x:Name="ForegroundColor" Color="#FFFFFFFF"/>
                                         </TextBlock.Foreground>
@@ -177,7 +177,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Apply" Margin="5,0" Height="35" VerticalAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Config.ReconnectTime, Mode=TwoWay}">
+            <Button Content="Apply &amp; Restart" Margin="5,0" Height="35" VerticalAlignment="Center" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.RestartClientCommand, Mode=TwoWay}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Style.Setters>
@@ -189,7 +189,7 @@
                                                 <Border.Background>
                                                     <SolidColorBrush x:Name="BackgroundColor" Color="#0084FF"/>
                                                 </Border.Background>
-                                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,7">
+                                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,7" FontFamily="Poppins">
                                                     <TextBlock.Foreground>
                                                         <SolidColorBrush x:Name="ForegroundColor" Color="#FFFFFF"/>
                                                     </TextBlock.Foreground>
