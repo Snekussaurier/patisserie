@@ -19,6 +19,7 @@
                                     Foreground="White"
                                     Padding="0,5"
                                     CaretBrush="White"
+                                    FontFamily="Poppins"
                                     Width="{Binding ElementName=ScrollViewContent,Path=ActualWidth}"
                                     Text="{Binding Path=Text,
             RelativeSource={RelativeSource TemplatedParent}, 

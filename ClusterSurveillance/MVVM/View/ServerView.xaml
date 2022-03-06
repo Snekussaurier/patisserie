@@ -416,12 +416,66 @@
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="2" x:Name="EmptyListView" Visibility="Collapsed">
                             <svg:SVGImage Source="ClusterSurveillance;component/Images/cube.svg" Margin="3" HorizontalContentAlignment="Center" Height="80"/>
                             <TextBlock Text="No registered pastry" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins SemiBold" FontSize="32" Margin="0,20,0,0"/>
-                            <TextBlock Text="Try running a surveillant or use the in-built dummy command and then come back" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins" FontSize="16" Margin="0,40,0,0"/>
+                            <TextBlock Text="Try running a surveillant or use the in-built dummy command and then come back" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins" FontSize="16" Margin="0,10,0,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="2" x:Name="ConnectingListView" Visibility="Collapsed">
+                            <svg:SVGImage Source="ClusterSurveillance;component/Images/cube.svg" Margin="3" HorizontalContentAlignment="Center" Height="80"/>
+                            <TextBlock Text="Connecting to broker..." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins SemiBold" FontSize="32" Margin="0,20,0,0"/>
+                            <TextBlock Text="Your patisserie is currently trying to connect to the broker" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins" FontSize="16" Margin="0,10,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="2" x:Name="NotConnectedView" Visibility="Collapsed">
                             <svg:SVGImage Source="ClusterSurveillance;component/Images/cube.svg" Margin="3" HorizontalContentAlignment="Center" Height="80"/>
-                            <TextBlock Text="Closed" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins SemiBold" FontSize="32" Margin="0,20,0,0"/>
-                            <TextBlock Text="Your patisserie is closed." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins" FontSize="16" Margin="0,40,0,0"/>
+                            <TextBlock Text="Closed" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins Bold" FontSize="32" Margin="0,20,0,0"/>
+                            <TextBlock Text="Your patisserie is closed." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Poppins Medium" FontSize="16" Margin="0,10,0,0"/>
+                            <Button Content="Open Patisserie" Height="35" HorizontalAlignment="Center" Margin="0,20" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.StartStopClientCommand}" Cursor="Hand" FontFamily="Poppins">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Style.Setters>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Grid>
+                                                            <Border CornerRadius="4">
+                                                                <Border.Background>
+                                                                    <SolidColorBrush x:Name="BackgroundColor" Color="#0084FF"/>
+                                                                </Border.Background>
+                                                                <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="20,0">
+                                                                    <TextBlock.Foreground>
+                                                                        <SolidColorBrush x:Name="ForegroundColor" Color="#FFFFFF"/>
+                                                                    </TextBlock.Foreground>
+                                                                </TextBlock>
+                                                            </Border>
+                                                        </Grid>
+
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Trigger.EnterActions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <ColorAnimation Storyboard.TargetName="BackgroundColor"
+                                                    Storyboard.TargetProperty="Color"
+                                                    To="#006ACC" Duration="0:0:0.2"/>
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </Trigger.EnterActions>
+                                                                <Trigger.ExitActions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <ColorAnimation Storyboard.TargetName="BackgroundColor"
+                                                    Storyboard.TargetProperty="Color"
+                                                    To="#0084FF" Duration="0:0:0.2"/>
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </Trigger.ExitActions>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style.Setters>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
                         </StackPanel>
                     </Grid>
                     <DataTemplate.Triggers>
@@ -429,6 +483,7 @@
                             <Setter TargetName="ClientListView" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="EmptyListView" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="NotConnectedView" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="ConnectingListView" Property="Visibility" Value="Hidden"/>
                         </DataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -438,6 +493,17 @@
                             <Setter TargetName="ClientListView" Property="Visibility" Value="Hidden"/>
                             <Setter TargetName="EmptyListView" Property="Visibility" Value="Visible"/>
                             <Setter TargetName="NotConnectedView" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="ConnectingListView" Property="Visibility" Value="Hidden"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Connector.Clients.Count}" Value="0"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Connector.Status}" Value="1"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="ClientListView" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="EmptyListView" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="NotConnectedView" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="ConnectingListView" Property="Visibility" Value="Visible"/>
                         </MultiDataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>

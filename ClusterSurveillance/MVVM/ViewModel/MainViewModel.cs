@@ -19,6 +19,7 @@ namespace ClusterSurveillance.MVVM.ViewModel
         public RelayCommand OptionViewCommand { get; set; }
         public RelayCommand CloseOptionViewCommand { get; set; }
         public RelayCommand StartStopClientCommand { get; set; }
+        public RelayCommand RestartClientCommand { get; set; }
 
 
         public RelayCommand TroubleshootViewCommand { get; set; }
@@ -119,6 +120,7 @@ namespace ClusterSurveillance.MVVM.ViewModel
 
             OptionViewCommand = new RelayCommand(o => {
                 OptionView = OptionVM;
+                OptionVM.CurrentView = OptionVM.GeneralVM;
                 OptionsIsChecked = true;
                 Title = SETTINGS_TITLE;
             });
@@ -154,6 +156,10 @@ namespace ClusterSurveillance.MVVM.ViewModel
                     Connector.StartClientAsync();
                 }
                 else Connector.StopClientAsync();
+            });
+            RestartClientCommand = new RelayCommand(o =>
+            {
+                Connector.RestartClient();
             });
             Connector.StartClientAsync();
         }
