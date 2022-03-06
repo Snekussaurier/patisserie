@@ -112,55 +112,180 @@
                                     </ListView.ItemContainerStyle>
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Grid>
-                                                    <Border Background="Transparent">
-                                                        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path2" VerticalAlignment="Center" Height="30" Width="30">
-                                                            <Path.RenderTransform>
+                                            <Grid>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Grid>
+                                                        <Border Background="Transparent">
+                                                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path2" VerticalAlignment="Center" Height="30" Width="30">
+                                                                <Path.RenderTransform>
+                                                                    <TransformGroup>
+                                                                        <ScaleTransform/>
+                                                                        <SkewTransform/>
+                                                                        <RotateTransform/>
+                                                                        <TranslateTransform X="0" Y="1"/>
+                                                                    </TransformGroup>
+                                                                </Path.RenderTransform>
+                                                                <Path.Data>
+                                                                    <PathGeometry Figures="M20.47 7.37s0 0 0-.08l-.06-.15a.71.71 0 0 0-.07-.09.94.94 0 0 0-.09-.12l-.09-.07L20 6.78l-7.5-4.63a1 1 0 0 0-1.06 0L4 6.78l-.09.08-.09.07a.94.94 0 0 0-.09.12.71.71 0 0 0-.07.09l-.06.15s0 0 0 .08a1.15 1.15 0 0 0 0 .26v8.74a1 1 0 0 0 .47.85l7.5 4.63h0a.47.47 0 0 0 .15.06s.05 0 .08 0a.86.86 0 0 0 .52 0s.05 0 .08 0a.47.47 0 0 0 .15-.06h0L20 17.22a1 1 0 0 0 .47-.85V7.63A1.15 1.15 0 0 0 20.47 7.37ZM11 19.21l-5.5-3.4V9.43L11 12.82Zm1-8.12L6.4 7.63 12 4.18l5.6 3.45Zm6.5 4.72L13 19.21V12.82l5.5-3.39Z" FillRule="NonZero"/>
+                                                                </Path.Data>
+                                                                <Path.Style>
+                                                                    <Style TargetType="Path">
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="2">
+                                                                                <Setter Property="Path.Fill" Value="#FFFF392F"/>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="1">
+                                                                                <Setter Property="Path.Fill" Value="#FF2FFFA4"/>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="0">
+                                                                                <Setter Property="Path.Fill" Value="#FF9BAAB5"/>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Path.Style>
+                                                            </Path>
+                                                            <Border.Triggers>
+                                                                <EventTrigger RoutedEvent="MouseEnter">
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation
+                                        Storyboard.TargetName="StatusMessage"
+                                        Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.12">
+                                                                                <DoubleAnimation.EasingFunction>
+                                                                                    <SineEase EasingMode="EaseIn"/>
+                                                                                </DoubleAnimation.EasingFunction>
+                                                                            </DoubleAnimation>
+                                                                            <DoubleAnimation
+                                        Storyboard.TargetName="StatusMessageScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.12" >
+                                                                                <DoubleAnimation.EasingFunction>
+                                                                                    <SineEase EasingMode="EaseIn"/>
+                                                                                </DoubleAnimation.EasingFunction>
+                                                                            </DoubleAnimation>
+                                                                            <DoubleAnimation
+                                        Storyboard.TargetName="StatusMessageScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.12">
+                                                                                <DoubleAnimation.EasingFunction>
+                                                                                    <SineEase EasingMode="EaseIn"/>
+                                                                                </DoubleAnimation.EasingFunction>
+                                                                            </DoubleAnimation>
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </EventTrigger>
+                                                                <EventTrigger RoutedEvent="MouseLeave">
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation
+                                        Storyboard.TargetName="StatusMessage"
+                                        Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.12">
+                                                                                <DoubleAnimation.EasingFunction>
+                                                                                    <SineEase EasingMode="EaseOut"/>
+                                                                                </DoubleAnimation.EasingFunction>
+                                                                            </DoubleAnimation>
+                                                                            <DoubleAnimation
+                                        Storyboard.TargetName="StatusMessageScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="0.5" Duration="0:0:0.12">
+                                                                                <DoubleAnimation.EasingFunction>
+                                                                                    <SineEase EasingMode="EaseOut"/>
+                                                                                </DoubleAnimation.EasingFunction>
+                                                                            </DoubleAnimation>
+                                                                            <DoubleAnimation
+                                        Storyboard.TargetName="StatusMessageScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="0.5" Duration="0:0:0.12">
+                                                                                <DoubleAnimation.EasingFunction>
+                                                                                    <SineEase EasingMode="EaseOut"/>
+                                                                                </DoubleAnimation.EasingFunction>
+                                                                            </DoubleAnimation>
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </EventTrigger>
+                                                            </Border.Triggers>
+                                                        </Border>
+                                                        <Border Name="StatusMessage" MaxWidth="200" Background="#FF706B86" Grid.Row="1" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0" Opacity="0" Margin="0,0,0,35">
+                                                            <Border.RenderTransform>
                                                                 <TransformGroup>
-                                                                    <ScaleTransform/>
+                                                                    <ScaleTransform ScaleY="0.5" ScaleX="0.5" x:Name="StatusMessageScaleTransform"/>
                                                                     <SkewTransform/>
                                                                     <RotateTransform/>
-                                                                    <TranslateTransform X="0" Y="1"/>
+                                                                    <TranslateTransform Y="45" X="-3"/>
                                                                 </TransformGroup>
-                                                            </Path.RenderTransform>
-                                                            <Path.Data>
-                                                                <PathGeometry Figures="M20.47 7.37s0 0 0-.08l-.06-.15a.71.71 0 0 0-.07-.09.94.94 0 0 0-.09-.12l-.09-.07L20 6.78l-7.5-4.63a1 1 0 0 0-1.06 0L4 6.78l-.09.08-.09.07a.94.94 0 0 0-.09.12.71.71 0 0 0-.07.09l-.06.15s0 0 0 .08a1.15 1.15 0 0 0 0 .26v8.74a1 1 0 0 0 .47.85l7.5 4.63h0a.47.47 0 0 0 .15.06s.05 0 .08 0a.86.86 0 0 0 .52 0s.05 0 .08 0a.47.47 0 0 0 .15-.06h0L20 17.22a1 1 0 0 0 .47-.85V7.63A1.15 1.15 0 0 0 20.47 7.37ZM11 19.21l-5.5-3.4V9.43L11 12.82Zm1-8.12L6.4 7.63 12 4.18l5.6 3.45Zm6.5 4.72L13 19.21V12.82l5.5-3.39Z" FillRule="NonZero"/>
-                                                            </Path.Data>
-                                                            <Path.Style>
-                                                                <Style TargetType="Path">
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Status}" Value="True">
-                                                                            <Setter Property="Path.Fill" Value="#FF2FFFA4"/>
-                                                                        </DataTrigger>
-                                                                        <DataTrigger Binding="{Binding Status}" Value="False">
-                                                                            <Setter Property="Path.Fill" Value="#FF9BAAB5"/>
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </Path.Style>
-                                                        </Path>
+                                                            </Border.RenderTransform>
+                                                            <TextBlock Margin="8, 4" Foreground="White" FontFamily="Poppins Medium" FontSize="11">
+                                                                <TextBlock.Style>
+                                                                    <Style>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="0">
+                                                                                <Setter Property="TextBlock.Text" Value="OFFLINE"/>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="1">
+                                                                                <Setter Property="TextBlock.Text" Value="ONLINE"/>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="2">
+                                                                                <Setter Property="TextBlock.Text" Value="ALARM"/>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                        </Border>
+                                                    </Grid>
+                                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="15,0,0,0">
+                                                        <TextBlock Text="{Binding Name}" Foreground="White" FontFamily="Poppins Medium" FontSize="14" Margin="0,0,0,2"/>
+                                                        <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                                            <TextBlock Text="{Binding Adress, StringFormat=Adress: {0}}" Foreground="Gray" FontSize="12" FontFamily="Poppins Medium"/>
+                                                            <TextBlock Text="{Binding Created, StringFormat=Created on: {0}}" Foreground="Gray" FontSize="12" FontFamily="Poppins Medium" Margin="10,0,0,0"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                    <Border Background="Transparent">
+                                                        <Grid>
+                                                            <Border Name="Temperature" MaxWidth="200" Background="#FF706B86" Grid.Row="1" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0" Opacity="0" Margin="0,0,0,35">
+                                                                <Border.RenderTransform>
+                                                                    <TransformGroup>
+                                                                        <ScaleTransform ScaleY="0.5" ScaleX="0.5" x:Name="TemperatureScaleTransform"/>
+                                                                        <SkewTransform/>
+                                                                        <RotateTransform/>
+                                                                        <TranslateTransform Y="45" X="-3"/>
+                                                                    </TransformGroup>
+                                                                </Border.RenderTransform>
+                                                                <TextBlock Margin="8, 4" Foreground="White" FontFamily="Poppins Medium" FontSize="11" Text="TEMPERATURE"/>
+                                                            </Border>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Path VerticalAlignment="Center" Height="30" Width="30" Fill="#ffb73a" Data="M13,15.28V8.5a1,1,0,0,0-2,0v6.78A2,2,0,0,0,10,17a2,2,0,0,0,4,0A2,2,0,0,0,13,15.28ZM16.5,13V5.5a4.5,4.5,0,0,0-9,0V13a6,6,0,0,0,3.21,9.83A7,7,0,0,0,12,23,6,6,0,0,0,16.5,13Zm-2,7.07a4,4,0,0,1-5.32-6,1,1,0,0,0,.3-.71V5.5a2.5,2.5,0,0,1,5,0v7.94a1,1,0,0,0,.3.71,4,4,0,0,1-.28,6Z" >
+                                                                    <Path.RenderTransform>
+                                                                        <TransformGroup>
+                                                                            <ScaleTransform/>
+                                                                            <SkewTransform/>
+                                                                            <RotateTransform/>
+                                                                            <TranslateTransform X="0" Y="1"/>
+                                                                        </TransformGroup>
+                                                                    </Path.RenderTransform>
+                                                                </Path>
+                                                                <TextBlock Foreground="#ffb73a" Text="{Binding Temperature, StringFormat={}{0}°C}" VerticalAlignment="Center" FontFamily="Poppins SemiBold" FontSize="16"/>
+                                                            </StackPanel>
+                                                        </Grid>
                                                         <Border.Triggers>
                                                             <EventTrigger RoutedEvent="MouseEnter">
                                                                 <BeginStoryboard>
                                                                     <Storyboard>
                                                                         <DoubleAnimation
-                                    Storyboard.TargetName="StatusMessage"
-                                    Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.12">
+                                        Storyboard.TargetName="Temperature"
+                                        Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.12">
                                                                             <DoubleAnimation.EasingFunction>
                                                                                 <SineEase EasingMode="EaseIn"/>
                                                                             </DoubleAnimation.EasingFunction>
                                                                         </DoubleAnimation>
                                                                         <DoubleAnimation
-                                    Storyboard.TargetName="StatusMessageScaleTransform"
-                                    Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.12" >
+                                        Storyboard.TargetName="TemperatureScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.12" >
                                                                             <DoubleAnimation.EasingFunction>
                                                                                 <SineEase EasingMode="EaseIn"/>
                                                                             </DoubleAnimation.EasingFunction>
                                                                         </DoubleAnimation>
                                                                         <DoubleAnimation
-                                    Storyboard.TargetName="StatusMessageScaleTransform"
-                                    Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.12">
+                                        Storyboard.TargetName="TemperatureScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.12">
                                                                             <DoubleAnimation.EasingFunction>
                                                                                 <SineEase EasingMode="EaseIn"/>
                                                                             </DoubleAnimation.EasingFunction>
@@ -172,22 +297,22 @@
                                                                 <BeginStoryboard>
                                                                     <Storyboard>
                                                                         <DoubleAnimation
-                                    Storyboard.TargetName="StatusMessage"
-                                    Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.12">
+                                        Storyboard.TargetName="Temperature"
+                                        Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.12">
                                                                             <DoubleAnimation.EasingFunction>
                                                                                 <SineEase EasingMode="EaseOut"/>
                                                                             </DoubleAnimation.EasingFunction>
                                                                         </DoubleAnimation>
                                                                         <DoubleAnimation
-                                    Storyboard.TargetName="StatusMessageScaleTransform"
-                                    Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="0.5" Duration="0:0:0.12">
+                                        Storyboard.TargetName="TemperatureScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="0.5" Duration="0:0:0.12">
                                                                             <DoubleAnimation.EasingFunction>
                                                                                 <SineEase EasingMode="EaseOut"/>
                                                                             </DoubleAnimation.EasingFunction>
                                                                         </DoubleAnimation>
                                                                         <DoubleAnimation
-                                    Storyboard.TargetName="StatusMessageScaleTransform"
-                                    Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="0.5" Duration="0:0:0.12">
+                                        Storyboard.TargetName="TemperatureScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="0.5" Duration="0:0:0.12">
                                                                             <DoubleAnimation.EasingFunction>
                                                                                 <SineEase EasingMode="EaseOut"/>
                                                                             </DoubleAnimation.EasingFunction>
@@ -197,39 +322,92 @@
                                                             </EventTrigger>
                                                         </Border.Triggers>
                                                     </Border>
-                                                    <Border Name="StatusMessage" MaxWidth="200" Background="#FF706B86" Grid.Row="1" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0" Opacity="0" Margin="0,0,0,35">
-                                                        <Border.RenderTransform>
-                                                            <TransformGroup>
-                                                                <ScaleTransform ScaleY="0.5" ScaleX="0.5" x:Name="StatusMessageScaleTransform"/>
-                                                                <SkewTransform/>
-                                                                <RotateTransform/>
-                                                                <TranslateTransform Y="45" X="-3"/>
-                                                            </TransformGroup>
-                                                        </Border.RenderTransform>
-                                                        <TextBlock Margin="8, 4" Foreground="White" FontFamily="Poppins Medium" FontSize="11">
-                                                            <TextBlock.Style>
-                                                                <Style>
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Status}" Value="False">
-                                                                            <Setter Property="TextBlock.Text" Value="OFFLINE"/>
-                                                                        </DataTrigger>
-                                                                        <DataTrigger Binding="{Binding Status}" Value="True">
-                                                                            <Setter Property="TextBlock.Text" Value="ONLINE"/>
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </TextBlock.Style>
-                                                        </TextBlock>
+                                                    <Border Background="Transparent">
+                                                        <Grid>
+                                                            <Border Name="Humidity" MaxWidth="200" Background="#FF706B86" Grid.Row="1" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0" Opacity="0" Margin="0,0,0,35">
+                                                                <Border.RenderTransform>
+                                                                    <TransformGroup>
+                                                                        <ScaleTransform ScaleY="0.5" ScaleX="0.5" x:Name="HumidtyScaleTransform"/>
+                                                                        <SkewTransform/>
+                                                                        <RotateTransform/>
+                                                                        <TranslateTransform Y="45" X="-3"/>
+                                                                    </TransformGroup>
+                                                                </Border.RenderTransform>
+                                                                <TextBlock Margin="8, 4" Foreground="White" FontFamily="Poppins Medium" FontSize="11" Text="HUMIDITY"/>
+                                                            </Border>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Path VerticalAlignment="Center" Height="30" Width="30" Fill="#3aa0ff" Data="M12.56,2.17a1,1,0,0,0-1.12,0c-.3.2-7.19,5-7.19,12.08a7.75,7.75,0,0,0,15.5,0C19.75,7.05,12.85,2.36,12.56,2.17ZM12,20a5.76,5.76,0,0,1-5.75-5.75c0-5,4.21-8.77,5.75-10,1.55,1.21,5.75,5,5.75,10A5.76,5.76,0,0,1,12,20Z" >
+                                                                    <Path.RenderTransform>
+                                                                        <TransformGroup>
+                                                                            <ScaleTransform/>
+                                                                            <SkewTransform/>
+                                                                            <RotateTransform/>
+                                                                            <TranslateTransform X="0" Y="1"/>
+                                                                        </TransformGroup>
+                                                                    </Path.RenderTransform>
+                                                                </Path>
+                                                                <TextBlock Foreground="#3aa0ff" Text="{Binding Humidity, StringFormat={}{0}%}" VerticalAlignment="Center" FontFamily="Poppins SemiBold" FontSize="16"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                        <Border.Triggers>
+                                                            <EventTrigger RoutedEvent="MouseEnter">
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+                                                                        <DoubleAnimation
+                                        Storyboard.TargetName="Humidity"
+                                        Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.12">
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <SineEase EasingMode="EaseIn"/>
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
+                                                                        <DoubleAnimation
+                                        Storyboard.TargetName="HumidtyScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.12" >
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <SineEase EasingMode="EaseIn"/>
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
+                                                                        <DoubleAnimation
+                                        Storyboard.TargetName="HumidtyScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.12">
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <SineEase EasingMode="EaseIn"/>
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </EventTrigger>
+                                                            <EventTrigger RoutedEvent="MouseLeave">
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+                                                                        <DoubleAnimation
+                                        Storyboard.TargetName="Humidity"
+                                        Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.12">
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <SineEase EasingMode="EaseOut"/>
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
+                                                                        <DoubleAnimation
+                                        Storyboard.TargetName="HumidtyScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="0.5" Duration="0:0:0.12">
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <SineEase EasingMode="EaseOut"/>
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
+                                                                        <DoubleAnimation
+                                        Storyboard.TargetName="HumidtyScaleTransform"
+                                        Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="0.5" Duration="0:0:0.12">
+                                                                            <DoubleAnimation.EasingFunction>
+                                                                                <SineEase EasingMode="EaseOut"/>
+                                                                            </DoubleAnimation.EasingFunction>
+                                                                        </DoubleAnimation>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </EventTrigger>
+                                                        </Border.Triggers>
                                                     </Border>
-                                                </Grid>
-                                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="15,0,0,0">
-                                                    <TextBlock Text="{Binding Name}" Foreground="White" FontFamily="Poppins Medium" FontSize="14" Margin="0,0,0,2"/>
-                                                    <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
-                                                        <TextBlock Text="{Binding Adress, StringFormat=Adress: {0}}" Foreground="Gray" FontSize="12" FontFamily="Poppins Medium"/>
-                                                        <TextBlock Text="{Binding Created, StringFormat=Created on: {0}}" Foreground="Gray" FontSize="12" FontFamily="Poppins Medium" Margin="10,0,0,0"/>
-                                                    </StackPanel>
                                                 </StackPanel>
-                                            </StackPanel>
+                                            </Grid>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>

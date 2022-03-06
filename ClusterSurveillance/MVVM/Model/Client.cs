@@ -1,5 +1,6 @@
 ﻿using ClusterSurveillance.Core;
 using System;
+using System.Globalization;
 using System.Timers;
 
 namespace ClusterSurveillance.MVVM.Model
@@ -15,15 +16,15 @@ namespace ClusterSurveillance.MVVM.Model
         {
             get { return _name; }
             set {if (!string.IsNullOrEmpty(value)) _name = value;
-                else _name = "Defaukt NAme";
+                else _name = "#NONAME";
             }
         }
         public string Adress { get; set; } = "#UNKNOWN!";
         public DateTime Created { get; set; }
 
-        private bool _status;
+        private int _status;
 
-        public bool Status
+        public int Status
         {
             get { return _status; }
             set { _status = value;
@@ -31,6 +32,25 @@ namespace ClusterSurveillance.MVVM.Model
             }
         }
 
+        private float _temperature;
+
+        public float Temperature
+        {
+            get { return _temperature; }
+            set { _temperature = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private float _humidity;
+
+        public float Humidity
+        {
+            get { return _humidity; }
+            set { _humidity = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Client(string clientId, string name, string adress, DateTime created)
         {
@@ -38,7 +58,7 @@ namespace ClusterSurveillance.MVVM.Model
             Name = name;
             if(!string.IsNullOrEmpty(adress)) Adress = adress;
             Created = created;
-            Status = false;
+            Status = 0;
             _timer = new();
             _timer.Interval = 10000;
             _timer.Elapsed += OnTimerElapsed;
@@ -47,14 +67,34 @@ namespace ClusterSurveillance.MVVM.Model
 
         private void OnTimerElapsed(Object source, ElapsedEventArgs e)
         {
-            Status = false;
+            Status = 0;
         }
 
-        public void GetMessage()
+        public void GetMessage(string payload)
         {
-            Status = true;
+            Status = 1;
             _timer.Stop();
             _timer.Start();
+
+            string[] values = payload.Split(':');
+
+            SetTemperature(float.Parse(values[1], CultureInfo.InvariantCulture.NumberFormat));
+            SetHumidity(float.Parse(values[2], CultureInfo.InvariantCulture.NumberFormat));
+        }
+
+        public void SetAlarm()
+        {
+            Status = 2;
+        }
+
+        public void SetTemperature(float temperature)
+        {
+            Temperature = temperature;
+        }
+       
+        public void SetHumidity(float humidity)
+        {
+            Humidity = humidity;
         }
     }
 }

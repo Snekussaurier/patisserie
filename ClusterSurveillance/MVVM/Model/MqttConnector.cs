@@ -87,16 +87,37 @@ namespace ClusterSurveillance.MVVM.Model
             _mqttClient.ConnectingFailedHandler = new ConnectingFailedHandlerDelegate(OnConnectingFailed);
 
             _mqttClient.UseApplicationMessageReceivedHandler(e => {
-                if(!Clients.Any(client => client.ClientId == e.ClientId))
+                int pFrom = e.ApplicationMessage.Topic.IndexOf('/');
+                int pTo = e.ApplicationMessage.Topic.LastIndexOf("/");
+
+                string clientId = e.ApplicationMessage.Topic[(pFrom + 1)..pTo];
+
+                if (!Clients.Any(client => client.ClientId == clientId))
                 {
                     App.Current.Dispatcher.BeginInvoke((Action)delegate
                     {
-                        Clients.Add(new Client(e.ClientId, "", "", DateTime.Now));
+                        Clients.Add(new Client(clientId, $"Server in room: {clientId}", "", DateTime.Now));
                     });
                 }
                 else
                 {
-                    Clients.Where(client => string.Equals(client.ClientId, e.ClientId)).FirstOrDefault().GetMessage();
+                    try
+                    {
+                        var currentClient = Clients.Where(client => string.Equals(client.ClientId, clientId)).FirstOrDefault();
+                        if (!e.ApplicationMessage.Topic.Contains("alarm"))
+                        {
+                            var payload = e.ApplicationMessage?.Payload == null ? null : Encoding.UTF8.GetString(e.ApplicationMessage?.Payload);
+                            currentClient.GetMessage(payload);
+                        }
+                        else
+                        {
+                            currentClient.SetAlarm();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log(LogLevel.Error, ex.ToString());
+                    }
                 }
             });
             // Starts a connection with the Broker
