@@ -7,7 +7,6 @@ using MQTTnet.Client.Options;
 using MQTTnet.Extensions.ManagedClient;
 using ClusterSurveillance.MVVM.Model.Logger;
 using Microsoft.Extensions.Logging;
-using MQTTnet.Client.Receiving;
 using ClusterSurveillance.Core;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -87,38 +86,45 @@ namespace ClusterSurveillance.MVVM.Model
             _mqttClient.ConnectingFailedHandler = new ConnectingFailedHandlerDelegate(OnConnectingFailed);
 
             _mqttClient.UseApplicationMessageReceivedHandler(e => {
-                int pFrom = e.ApplicationMessage.Topic.IndexOf('/');
-                int pTo = e.ApplicationMessage.Topic.LastIndexOf("/");
 
-                string clientId = e.ApplicationMessage.Topic[(pFrom + 1)..pTo];
+                int clientId = 0;
+                try
+                {
+                    clientId = Int32.Parse(e.ApplicationMessage.Topic.Substring(e.ApplicationMessage.Topic.LastIndexOf('/') + 1));
+                }
+                catch (Exception exept)
+                {
+                    _logger.Log(LogLevel.Error, "Message topic doesn't meet standardization criteria! \n" + exept.ToString());
+                    return;
+                }
 
-                if (!Clients.Any(client => client.ClientId == clientId))
+                foreach (var client in Clients)
                 {
-                    App.Current.Dispatcher.BeginInvoke((Action)delegate
+                    if(client.ClientId == clientId)
                     {
-                        Clients.Add(new Client(clientId, $"Server in room: {clientId}", "", DateTime.Now));
-                    });
-                }
-                else
-                {
-                    try
-                    {
-                        var currentClient = Clients.Where(client => string.Equals(client.ClientId, clientId)).FirstOrDefault();
-                        if (!e.ApplicationMessage.Topic.Contains("alarm"))
-                        {
-                            var payload = e.ApplicationMessage?.Payload == null ? null : Encoding.UTF8.GetString(e.ApplicationMessage?.Payload);
-                            currentClient.GetMessage(payload);
+                        try
+                        {                           
+                            if (!e.ApplicationMessage.Topic.Contains("alarm"))
+                            {
+                                var payload = e.ApplicationMessage?.Payload == null ? null : Encoding.UTF8.GetString(e.ApplicationMessage?.Payload);
+                                client.GetMessage(payload);
+                            }
+                            else
+                            {
+                                client.SetAlarm();
+                            }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            currentClient.SetAlarm();
+                            _logger.Log(LogLevel.Error, ex.ToString());
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Log(LogLevel.Error, ex.ToString());
+                        return;
                     }
                 }
+                App.Current.Dispatcher.BeginInvoke((Action)delegate
+                {
+                    Clients.Add(new Client(clientId, $"Server in room: {clientId}", "", DateTime.Now));
+                });
             });
             // Starts a connection with the Broker
             await _mqttClient.StartAsync(_options);

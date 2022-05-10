@@ -3,15 +3,26 @@
                     xmlns:core="clr-namespace:ClusterSurveillance.Core">
     <Style BasedOn="{StaticResource {x:Type ToggleButton}}" TargetType="{x:Type RadioButton}" x:Key="MenuButtonTheme">
         <Style.Setters>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="Height" Value="45"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
                         <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Transparent">
+                            <ContentPresenter
+						    x:Name="contentPresenter"
+						    Margin="0"
+						    HorizontalAlignment="Center"
+						    VerticalAlignment="Center"
+						    Focusable="False"
+						    RecognizesAccessKey="True" />
                             <TextBlock Name="ButtonText" Text="{TemplateBinding Property=Content}" VerticalAlignment="Center" Margin="50,0,0,0" FontFamily="Poppins">
                                 <TextBlock.Foreground>
-                                    <SolidColorBrush x:Name="ForegroundColor" Color="#48FFFFFF"/>
+                                    <SolidColorBrush x:Name="ForegroundColor" Color="#ADB5BD"/>
                                 </TextBlock.Foreground>
                             </TextBlock>
+                            <Border Width="5" Name="Active" Background="Transparent" CornerRadius="3" HorizontalAlignment="Right"/>
                         </Grid>
 
                         <ControlTemplate.Triggers>
@@ -21,7 +32,7 @@
                                         <Storyboard>
                                             <ColorAnimation Storyboard.TargetName="ForegroundColor"
                                                     Storyboard.TargetProperty="Color"
-                                                    To="#FFFFFFFF" Duration="0:0:0.2"/>
+                                                    To="#212529" Duration="0:0:0.2"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>
@@ -30,14 +41,14 @@
                                         <Storyboard>
                                             <ColorAnimation Storyboard.TargetName="ForegroundColor"
                                                     Storyboard.TargetProperty="Color"
-                                                    To="#48FFFFFF" Duration="0:0:0.2"/>
+                                                    To="#ADB5BD" Duration="0:0:0.2"/>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>
                             </Trigger>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="ButtonText" Property="TextBlock.FontWeight" Value="Bold"/>
-                                <Setter TargetName="ButtonText" Property="TextBlock.Foreground" Value="#FFFFFFFF"/>
+                                <Setter TargetName="ButtonText" Property="TextBlock.Foreground" Value="#212529"/>
+                                <Setter TargetName="Active" Property="Border.Background" Value="#845EF7"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

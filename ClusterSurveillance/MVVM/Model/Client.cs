@@ -9,7 +9,7 @@ namespace ClusterSurveillance.MVVM.Model
     {
         private Timer _timer;
 
-        public string ClientId { get; set; }
+        public int ClientId { get; set; }
         private string _name;
 
         public string Name
@@ -32,6 +32,7 @@ namespace ClusterSurveillance.MVVM.Model
             }
         }
 
+        // Current values
         private float _temperature;
 
         public float Temperature
@@ -52,7 +53,26 @@ namespace ClusterSurveillance.MVVM.Model
             }
         }
 
-        public Client(string clientId, string name, string adress, DateTime created)
+        // Limits
+        private float _tempLimit;
+
+        public float TempLimit
+        {
+            get { return _tempLimit; }
+            set { _tempLimit = value; }
+        }
+
+        private float _humidLimit;
+
+        public float HumidLimit
+        {
+            get { return _humidLimit; }
+            set { _humidLimit = value; }
+        }
+
+
+
+        public Client(int clientId, string name, string adress, DateTime created)
         {
             ClientId = clientId;
             Name = name;

@@ -6,7 +6,39 @@
              xmlns:local="clr-namespace:ClusterSurveillance.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}" x:Key="TextBoxTheme">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <StackPanel Orientation="Vertical">
+                            <TextBox
+                                    Background="Transparent"
+                                    BorderThickness="0,0,0,1"
+                                    MaxWidth="450"
+                                    FontSize="14"
+                                    Foreground="White"
+                                    Padding="0,5"
+                                    CaretBrush="White"
+                                    FontFamily="Poppins"
+                                    Width="{Binding ElementName=ScrollViewContent,Path=ActualWidth}"
+                                    Text="{Binding Path=Text,
+            RelativeSource={RelativeSource TemplatedParent}, 
+            Mode=TwoWay,
+            UpdateSourceTrigger=PropertyChanged}">
+
+                            </TextBox>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Border Background="Transparent" BorderThickness="0,0,0,1" BorderBrush="#775A5961" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
                 <Grid>
@@ -127,5 +159,45 @@
                 </StackPanel>
             </StackPanel>
         </Border>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Margin="40,10">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Margin" Value="0,15,0,0"/>
+                </Style>
+            </StackPanel.Resources>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Temperature" FontSize="12" Foreground="Gray" Grid.Column="0"/>
+                <TextBlock Text="Temperature Limit" FontSize="14" Foreground="White" Grid.Column="1"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Humidity" FontSize="12" Foreground="Gray" Grid.Column="0"/>
+                <TextBlock Text="Temperature" FontSize="14" Foreground="White" Grid.Column="1"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Temperature Limit" FontSize="12" Foreground="Gray" Grid.Column="0"/>
+                <TextBox Text="Temperature" FontSize="14" Foreground="White" Grid.Column="1" Style="{StaticResource TextBoxTheme}"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Humidity Limit" FontSize="12" Foreground="Gray" Grid.Column="0"/>
+                <TextBox Text="Humidity Limit" FontSize="14" Foreground="White" Grid.Column="1" Style="{StaticResource TextBoxTheme}"/>
+            </Grid>
+            
+        </StackPanel>
     </Grid>
 </UserControl>
